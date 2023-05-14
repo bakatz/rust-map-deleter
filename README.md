@@ -12,7 +12,7 @@ It's recommended to deploy this to AWS as it's completely free for this use case
 1. Sign up for an AWS account
 2. Create a Lambda function, make sure you select `go 1.x` as the runtime
 3. Change the handler to `bootstrap`
-4. Make sure the input is set to Event Bridge with the following settings (make sure to change the schedule to any time just before your game server is scheduled to restart - if you aren't familiar with cron expressions, check out https://crontab.guru):
+4. Make sure the input is set to Event Bridge with the following settings (make sure to change the schedule to any time just **_before_** your game server is scheduled to restart - if you aren't familiar with cron expressions, check out https://crontab.guru):
 
 ![system-design](https://github.com/bakatz/rust-server-map-deleter/assets/1575240/3ddaff01-e89e-4094-8a2b-0371dd8f7396)
 
