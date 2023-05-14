@@ -19,6 +19,7 @@ type Response struct {
 }
 
 const SUCCESS_MESSAGE = "Function finished without errors"
+const CONNECTION_TIMEOUT_DURATION = 5 * time.Second
 
 func makeAndLogErrorResponse(message string, code string, logger *zap.Logger) Response {
 	response := Response{Message: message, Code: code}
@@ -36,8 +37,6 @@ func Handler(ctx context.Context) (Response, error) {
 	password := os.Getenv("SFTP_PASSWORD")
 	gameServerBasePath := os.Getenv("GAME_SERVER_BASE_PATH")
 
-	timeout := 5 * time.Second
-
 	// set up the SSH client config
 	sshConfig := &ssh.ClientConfig{
 		User: username,
@@ -45,7 +44,7 @@ func Handler(ctx context.Context) (Response, error) {
 			ssh.Password(password),
 		},
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
-		Timeout:         timeout,
+		Timeout:         CONNECTION_TIMEOUT_DURATION,
 	}
 
 	// connect to the SSH server with a timeout
