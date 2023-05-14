@@ -23,7 +23,7 @@ const CONNECTION_TIMEOUT_DURATION = 5 * time.Second
 
 func makeAndLogErrorResponse(message string, code string, logger *zap.Logger) Response {
 	response := Response{Message: message, Code: code}
-	logger.Sugar().Info("Response: ", response)
+	logger.Sugar().Error("Response: ", response)
 	return response
 }
 
