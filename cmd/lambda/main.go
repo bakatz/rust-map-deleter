@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"os"
 	"time"
 
@@ -36,6 +37,9 @@ func Handler(ctx context.Context) (Response, error) {
 	username := os.Getenv("SFTP_USERNAME")
 	password := os.Getenv("SFTP_PASSWORD")
 	gameServerBasePath := os.Getenv("GAME_SERVER_BASE_PATH")
+	if gameServerBasePath == "" {
+		return makeAndLogErrorResponse("missing GAME_SERVER_BASE_PATH", "missing_evar", logger), errors.New("missing GAME_SERVER_BASE_PATH")
+	}
 
 	// set up the SSH client config
 	sshConfig := &ssh.ClientConfig{
