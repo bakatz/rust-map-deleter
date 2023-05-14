@@ -23,8 +23,9 @@ It's recommended to deploy this to AWS as it's completely free for this use case
 SFTP_HOST_PORT: "hostipaddress:port"
 SFTP_USERNAME: "yourusername"
 SFTP_PASSWORD: "yourpassword"
+GAME_SERVER_BASE_PATH: "/some/absolute/path/to/rust"
 ```
-If you don't know the port, it's probably `21`.
+If you don't know the port, it's probably `21`. For game server base path, use an absolute path (starting with a slash) and make sure the directory is the one with the .map file in it.
 
 6. Go to the latest releases page: https://github.com/bakatz/rust-server-map-deleter/releases and download the lambda-handler.zip file. Alternatively, on your local machine, run ./build.sh which will then output a lambda-handler.zip file.
 7. Back in AWS lambda, upload the zip file from the above step under the "Code" menu
