@@ -1,6 +1,7 @@
 # rust-server-map-deleter
-What: a simple lambda function that automatically deletes map files for the game Rust
-Why: Rust has an extremely buggy gameserver that sometimes corrupts maps between server restarts. By deleting the map and allowing the server to regenerate it on startup, the game server will start successfully instead of intermittently failing due to a corrupt map.
+**What**: a simple lambda function that automatically deletes map files for the game Rust
+
+**Why**: Rust has an extremely buggy gameserver that sometimes corrupts maps between server restarts. By deleting the map and allowing the server to regenerate it on startup, the game server will start successfully instead of intermittently failing due to a corrupt map.
 
 # Requirements
 - Go 1.x (Navigate to https://go.dev to install the binaries for your OS)
