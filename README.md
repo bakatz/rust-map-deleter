@@ -3,7 +3,7 @@
 
 **Why**: Rust has an extremely buggy gameserver that sometimes corrupts maps between server restarts. By deleting the map and allowing the server to regenerate it on startup, the game server will start successfully instead of intermittently failing due to a corrupt map. Rust map generation is deterministic anyway, so as long as you don't change the seed the same map will be generated every time/there's no risk of data loss.
 
-# Requirements
+# Requirements (only necessary if you want to build from source, otherwise just skip to the deployment instructions)
 - Go 1.x (Navigate to https://go.dev to install the binaries for your OS)
 - OSX or Linux (or WSL2 if running on windows)
 
@@ -24,6 +24,6 @@ SFTP_PASSWORD: "yourpassword"
 ```
 If you don't know the port, it's probably `21`.
 
-6. Download the latest release from here: https://github.com/bakatz/rust-server-map-deleter/releases/tag/v1.0.0 (select the lambda-handler.zip file). Alternatively, on your local machine, run ./build.sh which will then output a lambda-handler.zip file
+6. Go to the latest releaseS: https://github.com/bakatz/rust-server-map-deleter/releases and download the lambda-handler.zip file. Alternatively, on your local machine, run ./build.sh which will then output a lambda-handler.zip file.
 7. Back in AWS lambda, upload the zip file from the above step
 8. To test and make sure everything is working, use the Test menu in the AWS Lambda Console to send a test event to the lambda function. It should report back "success." You can also just wait until the scheduled time that you configured as a cron expression and the function will automatically execute.
