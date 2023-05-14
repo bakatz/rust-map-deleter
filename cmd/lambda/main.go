@@ -68,6 +68,7 @@ func Handler(ctx context.Context) (Response, error) {
 
 	numDeleted := 0
 	for _, filePath := range matches {
+		// Errors are intentionally ignored here as some game server hosts have misconfigured FTP servers that report errors even though everything went fine
 		sftpClient.Rename(filePath, filePath+".softdeleted")
 		numDeleted++
 	}
