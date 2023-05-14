@@ -4,7 +4,12 @@ go 1.20
 
 require golang.org/x/crypto v0.9.0
 
-require github.com/kr/fs v0.1.0 // indirect
+require (
+	github.com/kr/fs v0.1.0 // indirect
+	go.uber.org/atomic v1.11.0 // indirect
+	go.uber.org/multierr v1.11.0 // indirect
+	go.uber.org/zap v1.24.0 // indirect
+)
 
 require (
 	github.com/aws/aws-lambda-go v1.41.0 // indirect
