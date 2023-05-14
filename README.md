@@ -3,6 +3,8 @@
 
 **Why**: Rust has an extremely buggy gameserver that sometimes corrupts maps between server restarts. By deleting the map and allowing the server to regenerate it on startup, the game server will start successfully instead of intermittently failing due to a corrupt map. Rust map generation is deterministic anyway, so as long as you don't change the seed the same map will be generated every time/there's no risk of data loss.
 
+**How do you know if this is a useful tool for your server**: If you've gotten an error like `LZ4 block is corrupted, or invalid length has been given.` when starting your server, deleting the .map file will typically fix it. If you don't want to do that manually every day, use this repository.
+
 # Requirements (only necessary if you want to build from source, otherwise just skip to the deployment instructions)
 - Go 1.x (Navigate to https://go.dev to install the binaries for your OS)
 - OSX or Linux (or WSL2 if running on windows)
