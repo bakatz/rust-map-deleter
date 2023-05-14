@@ -24,6 +24,7 @@ SFTP_HOST_PORT: "hostipaddress:port"
 SFTP_USERNAME: "yourusername"
 SFTP_PASSWORD: "yourpassword"
 GAME_SERVER_BASE_PATH: "/some/absolute/path/to/rust"
+DISCORD_WEBHOOK_URL: "https://discord.com/api/webhooks/someidgoeshere/somesecretgoeshere" (this is optional, feel free to leave it out it if you don't want a webhook sent or you don't have a Discord for your game server)
 ```
 If you don't know the port, it's probably `21`. For game server base path, use an absolute path (starting with a slash) and make sure the directory is the one with the .map file in it.
 

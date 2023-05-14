@@ -1,8 +1,11 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"errors"
+	"fmt"
+	"net/http"
 	"os"
 	"time"
 
@@ -19,8 +22,13 @@ type Response struct {
 	NumMapsDeleted int    `json:"num_maps_deleted"`
 }
 
-const SUCCESS_MESSAGE = "Function finished without errors"
-const CONNECTION_TIMEOUT_DURATION = 5 * time.Second
+const (
+	SUCCESS_MESSAGE                       = "Function finished without errors"
+	MISSING_GAME_SERVER_BASE_PATH_MESSAGE = "missing GAME_SERVER_BASE_PATH"
+	CONNECTION_TIMEOUT_DURATION           = 5 * time.Second
+	DISCORD_WEBHOOK_PAYLOAD_FORMAT        = `{"content": "Rust Map Deleter successfully finished deleting %d map(s)"}`
+	CONTENT_TYPE_APPLICATION_JSON         = "application/json"
+)
 
 func makeAndLogErrorResponse(message string, code string, logger *zap.Logger) Response {
 	response := Response{Message: message, Code: code}
@@ -38,7 +46,7 @@ func Handler(ctx context.Context) (Response, error) {
 	password := os.Getenv("SFTP_PASSWORD")
 	gameServerBasePath := os.Getenv("GAME_SERVER_BASE_PATH")
 	if gameServerBasePath == "" {
-		return makeAndLogErrorResponse("missing GAME_SERVER_BASE_PATH", "missing_evar", logger), errors.New("missing GAME_SERVER_BASE_PATH")
+		return makeAndLogErrorResponse(MISSING_GAME_SERVER_BASE_PATH_MESSAGE, "missing_evar", logger), errors.New(MISSING_GAME_SERVER_BASE_PATH_MESSAGE)
 	}
 
 	// set up the SSH client config
@@ -73,12 +81,21 @@ func Handler(ctx context.Context) (Response, error) {
 	numDeleted := 0
 	for _, filePath := range matches {
 		// Errors are intentionally ignored here as some game server hosts have misconfigured FTP servers that report errors even though everything went fine
-		sftpClient.Rename(filePath, filePath+".softdeleted")
+		sftpClient.Remove(filePath)
 		numDeleted++
 	}
 
 	// return a success message
 	logger.Info(SUCCESS_MESSAGE, zap.Int("num_maps_deleted", numDeleted))
+
+	discordWebhookURL := os.Getenv("DISCORD_WEBHOOK_URL")
+	if discordWebhookURL != "" {
+		_, err := http.Post(discordWebhookURL, CONTENT_TYPE_APPLICATION_JSON, bytes.NewBuffer([]byte(fmt.Sprintf(DISCORD_WEBHOOK_PAYLOAD_FORMAT, numDeleted))))
+		if err != nil {
+			logger.Warn("Failed to send a webhook to discord", zap.Error(err))
+		}
+	}
+
 	return Response{Message: SUCCESS_MESSAGE, NumMapsDeleted: numDeleted}, nil
 }
 
