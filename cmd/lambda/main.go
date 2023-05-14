@@ -84,7 +84,7 @@ func Handler(ctx context.Context) (Response, error) {
 		if err != nil {
 			return makeAndLogErrorResponse("Failed to delete map", "map_deletion_error", logger), err
 		}
-		logger.Info("Successfully removed map at file path", zap.String("file_path", filePath))
+		logger.Info("Successfully removed map file", zap.String("file_path", filePath))
 		numDeleted++
 	}
 
