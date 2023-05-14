@@ -24,6 +24,6 @@ SFTP_PASSWORD: "yourpassword"
 ```
 If you don't know the port, it's probably `21`.
 
-6. On your local machine, run ./build.sh which will then output a lambda-handler.zip file
-7. Back in AWS lambda, upload the zip file
-8. To test and make sure everything is working, use the Test menu in the AWS Lambda Console to send a test event to the lambda function. It should report back "success." Otherwise, wait until the scheduled time that you configured as a cron expression and the function will automatically execute.
+6. Download the latest release from here: https://github.com/bakatz/rust-server-map-deleter/releases/tag/v1.0.0 (select the lambda-handler.zip file). Alternatively, on your local machine, run ./build.sh which will then output a lambda-handler.zip file
+7. Back in AWS lambda, upload the zip file from the above step
+8. To test and make sure everything is working, use the Test menu in the AWS Lambda Console to send a test event to the lambda function. It should report back "success." You can also just wait until the scheduled time that you configured as a cron expression and the function will automatically execute.
