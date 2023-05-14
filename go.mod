@@ -1,4 +1,4 @@
-module github.com/bakatz/rust-map-deleter
+module github.com/bakatz/rust-server-map-deleter
 
 go 1.20
 
