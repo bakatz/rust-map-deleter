@@ -7,7 +7,7 @@
 - Go 1.x (Navigate to https://go.dev to install the binaries for your OS)
 - OSX or Linux (or WSL2 if running on windows)
 
-# Deployment
+# Deployment instructions
 It's recommended to deploy this to AWS as it's completely free for this use case.
 1. Sign up for an AWS account
 2. Create a Lambda function, make sure you select `go 1.x` as the runtime
