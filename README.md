@@ -8,6 +8,7 @@
 # Requirements (only necessary if you want to build from source, otherwise just skip to the deployment instructions)
 - Go 1.x (Navigate to https://go.dev to install the binaries for your OS)
 - OSX or Linux (or WSL2 if running on windows)
+- `zip` should be installed with `sudo apt install zip` or similar
 
 # Deployment instructions
 It's recommended to deploy this to AWS as it's completely free for this use case.
