@@ -32,3 +32,4 @@ template.yml
 # End of https://www.toptal.com/developers/gitignore/api/go,sam
 
 .env
+lambda-handler.zip
