@@ -80,13 +80,13 @@ func Handler(ctx context.Context) (Response, error) {
 
 	numDeleted := 0
 	for _, filePath := range matches {
-		// Errors are intentionally ignored here as some game server hosts have misconfigured FTP servers that report errors even though everything went fine
-		sftpClient.Remove(filePath)
+		err := sftpClient.Remove(filePath)
+		if err != nil {
+			return makeAndLogErrorResponse("Failed to delete map", "map_deletion_error", logger), err
+		}
+		logger.Info("Successfully removed map at file path", zap.String("file_path", filePath))
 		numDeleted++
 	}
-
-	// return a success message
-	logger.Info(SUCCESS_MESSAGE, zap.Int("num_maps_deleted", numDeleted))
 
 	discordWebhookURL := os.Getenv("DISCORD_WEBHOOK_URL")
 	if discordWebhookURL != "" {
@@ -96,6 +96,8 @@ func Handler(ctx context.Context) (Response, error) {
 		}
 	}
 
+	// return a success message
+	logger.Info(SUCCESS_MESSAGE, zap.Int("num_maps_deleted", numDeleted))
 	return Response{Message: SUCCESS_MESSAGE, NumMapsDeleted: numDeleted}, nil
 }
 
