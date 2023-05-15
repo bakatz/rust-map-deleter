@@ -1,7 +1,7 @@
 # rust-server-map-deleter
 **What**: a simple lambda function that automatically deletes map files for the game Rust (on the server side, only helpful for server owners)
 
-**Why**: Rust has an extremely buggy gameserver that sometimes corrupts maps between server restarts. By deleting the map and allowing the server to regenerate it on startup, the game server will start successfully instead of intermittently failing due to a corrupt map. Rust map generation is deterministic anyway, so as long as you don't change the seed the same map will be generated every time/there's no risk of data loss.
+**Why**: Rust has an extremely delicate gameserver that sometimes corrupts maps between server restarts depending on how the server is restarted. This can especially happen when using plugins like SmoothRestarter or relying on your host's restart functionality which may not be implemented properly. By deleting the map and allowing the server to regenerate it on startup, the game server will start successfully instead of intermittently failing due to a corrupt map. Rust map generation is deterministic anyway, so as long as you don't change the seed the same map will be generated every time/there's no risk of data loss.
 
 **How do you know if this is a useful tool for your server**: If you've gotten an error like `LZ4 block is corrupted, or invalid length has been given.` when starting your server, deleting the .map file will typically fix it. If you don't want to do that manually every day or your game server host doesn't have a modern control panel with scheduled tasks, use the approach in this repository to automatically clean up your maps.
 
